@@ -28,7 +28,9 @@ public abstract class DownloadAsyncTask<Result> extends AsyncTask<Void, Void, Re
     @Override
     protected Result doInBackground(Void... params) {
         try {
-            return parseJson(downloadUrl(new URL(url)));
+            URL javaUrl = new URL(url);
+            String data = downloadUrl(javaUrl);
+            return parseJson(data);
         } catch(Exception e) {
             exception = e;
             return null;
