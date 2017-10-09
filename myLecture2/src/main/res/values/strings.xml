@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">MyMaps</string>
+    <string name="snackbar_load_retry_message">Konnte Trinkbrunnen nicht laden</string>
+    <string name="snackbar_load_retry_action">Erneut versuchen</string>
+</resources>
