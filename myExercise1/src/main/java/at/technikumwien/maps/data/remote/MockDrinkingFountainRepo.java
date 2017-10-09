@@ -14,5 +14,6 @@ public class MockDrinkingFountainRepo implements DrinkingFountainRepo {
         drinkingFountains.add(DrinkingFountain.create("1", "Trinkbrunnen", 48.2914334776787, 16.41516492809119));
         drinkingFountains.add(DrinkingFountain.create("2", "Auslaufbrunnen", 48.21316356486897, 16.45054908161278));
         callback.onDataLoaded(drinkingFountains);
+
     }
 }
