@@ -17,6 +17,7 @@ public class MapsPresenter extends MvpBasePresenter<MapsView> {
         drinkingFountainRepo = manager.getDrinkingFountainRepo();
     }
 
+    // baut auf Standard-Repo auf
     public void loadDrinkingFountains() {
         drinkingFountainRepo.loadDrinkingFountains(new OnDataLoadedCallback<List<DrinkingFountain>>() {
             @Override
@@ -34,4 +35,31 @@ public class MapsPresenter extends MvpBasePresenter<MapsView> {
             }
         });
     }
+
+    /*
+    Retrofit Repo
+
+
+    public void loadDrinkingFountains() {
+        drinkingFountainApi.getDrinkingFountains().enqueue(new Callback<DrinkingFountainResponse>() {
+            @Override
+            public void onResponse(Call<DrinkingFountainResponse> call, Response<DrinkingFountainResponse> response) {
+                if(isViewAttached()) {
+                    if(response.isSuccessful()) {
+                        getView().showDrinkingFountains(response.body().toDrinkingFountainList());
+                    } else {
+                        getView().showLoadingError(new HttpException(response));
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DrinkingFountainResponse> call, Throwable throwable) {
+                if(isViewAttached()) {
+                    getView().showLoadingError(throwable);
+                }
+            }
+        });
+    }
+     */
 }
