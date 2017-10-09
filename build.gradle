@@ -12,8 +12,10 @@ buildscript {
     }
 
     ext.supportLibVersion = '26.0.2'
-    ext.playServicesVersion = '11.2.2'
+    ext.playServicesVersion = '11.4.2'
     ext.autoValueVersion = '1.5'
+    ext.retrofitVersion = '2.3.0'
+    ext.okHttpVersion = '3.9.0'
 }
 
 allprojects {
