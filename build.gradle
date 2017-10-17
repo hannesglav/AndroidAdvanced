@@ -11,8 +11,9 @@ buildscript {
         // in the individual module build.gradle files
     }
 
-    ext.supportLibVersion = '26.0.2'
+    ext.supportLibVersion = '26.1.0'
     ext.playServicesVersion = '11.4.2'
+    ext.archComponentsVersion = '1.0.0-beta2'
     ext.autoValueVersion = '1.5'
     ext.retrofitVersion = '2.3.0'
     ext.okHttpVersion = '3.9.0'
