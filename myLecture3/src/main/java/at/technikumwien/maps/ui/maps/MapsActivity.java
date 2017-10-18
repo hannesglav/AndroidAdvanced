@@ -14,6 +14,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.List;
@@ -21,6 +22,8 @@ import java.util.List;
 import at.technikumwien.maps.R;
 import at.technikumwien.maps.data.model.DrinkingFountain;
 import at.technikumwien.maps.ui.base.BaseActivity;
+
+import static android.support.design.widget.Snackbar.LENGTH_INDEFINITE;
 
 public class MapsActivity extends BaseActivity<MapsView, MapsPresenter> implements OnMapReadyCallback, MapsView {
 
@@ -65,10 +68,21 @@ public class MapsActivity extends BaseActivity<MapsView, MapsPresenter> implemen
     @Override
     public void onMapReady(GoogleMap googleMap) {
         this.googleMap = googleMap;
+
+        googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                String id = (String)marker.getTag();
+                presenter.updateCounter(id);
+                return false;
+            }
+        });
+
         LatLng viennaLatLng = new LatLng(48.239340, 16.377335);
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(viennaLatLng, 10));
         presenter.loadDrinkingFountains();
     }
+
 
 
     @Override
@@ -76,19 +90,27 @@ public class MapsActivity extends BaseActivity<MapsView, MapsPresenter> implemen
         googleMap.clear();
 
         for(DrinkingFountain df : drinkingFountains) {
-            googleMap.addMarker(new MarkerOptions().position(df.getPosition()).title(df.getName()));
+            Marker marker=googleMap.addMarker(new MarkerOptions()
+                    .position(df.getPosition())
+                    .title(df.getName()+" : "+df.getClickCount()));
+            marker.setTag(df.getId());
         }
     }
 
     @Override
     public void showLoadingError(Throwable e) {
         Log.e("MapsActivity", "Could not load drinking fountains", e);
-        Snackbar.make(rootLayout, R.string.snackbar_load_retry_message, Snackbar.LENGTH_INDEFINITE)
+        Snackbar.make(rootLayout, R.string.snackbar_load_retry_message, LENGTH_INDEFINITE)
                 .setAction(R.string.snackbar_load_retry_action, new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         presenter.loadDrinkingFountains();
                     }
                 }).show();
+    }
+
+    @Override
+    public void showLocalStorageSuccess() {
+        Snackbar.make(rootLayout,"Locally stored",LENGTH_INDEFINITE).show();
     }
 }

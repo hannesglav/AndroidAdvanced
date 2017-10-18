@@ -1,17 +1,22 @@
 package at.technikumwien.maps.data.model;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
 import com.google.android.gms.maps.model.LatLng;
 
+@Entity(tableName="drinking_fountain")
 public class DrinkingFountain {
 
+    @PrimaryKey
     @NonNull
     private String id;
     @NonNull
     private String name;
     private double lat;
     private double lng;
+    private int clickCount;
 
     public DrinkingFountain() { }
 
@@ -20,6 +25,7 @@ public class DrinkingFountain {
         this.name = name;
         this.lat = lat;
         this.lng = lng;
+        this.clickCount = 0;
     }
 
     @NonNull
@@ -58,5 +64,17 @@ public class DrinkingFountain {
 
     public LatLng getPosition() {
         return new LatLng(getLat(), getLng());
+    }
+
+    public int getClickCount() {
+        return clickCount;
+    }
+
+    public void setClickCount(int clickCount) {
+        this.clickCount = clickCount;
+    }
+
+    public void incrementClick() {
+        this.clickCount++;
     }
 }
