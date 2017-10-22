@@ -55,7 +55,7 @@ public class MapsActivity extends BaseActivity<MapsView, MapsPresenter> implemen
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId() == R.id.menu_refresh) {
-            presenter.refreshDrinkingFountains();
+            presenter.loadDrinkingFountains();
             return true;
         }
 
