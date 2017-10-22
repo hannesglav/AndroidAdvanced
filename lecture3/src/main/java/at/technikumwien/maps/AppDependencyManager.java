@@ -1,11 +1,16 @@
 package at.technikumwien.maps;
 
+import android.arch.persistence.db.SupportSQLiteDatabase;
+import android.arch.persistence.room.Room;
+import android.arch.persistence.room.migration.Migration;
 import android.content.Context;
 import android.content.res.Resources;
 
 import com.google.gson.Gson;
 
+import at.technikumwien.maps.data.local.AppDatabase;
 import at.technikumwien.maps.data.local.DrinkingFountainRepo;
+import at.technikumwien.maps.data.local.RoomDrinkingFountainRepo;
 import at.technikumwien.maps.data.remote.DrinkingFountainApi;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -19,6 +24,7 @@ public class AppDependencyManager {
     private OkHttpClient okHttpClient;
     private Gson gson;
     private DrinkingFountainApi drinkingFountainApi;
+    private AppDatabase appDatabase;
 
     public AppDependencyManager(Context appContext) {
         this.appContext = appContext;
@@ -34,7 +40,7 @@ public class AppDependencyManager {
     }
 
     public DrinkingFountainRepo getDrinkingFountainRepo() {
-        // TODO: Initialize drinking fountain repo
+        if(drinkingFountainRepo == null) { drinkingFountainRepo = new RoomDrinkingFountainRepo(this); }
         return drinkingFountainRepo;
     }
 
@@ -69,4 +75,11 @@ public class AppDependencyManager {
         return drinkingFountainApi;
     }
 
+    public AppDatabase getAppDatabase() {
+        if(appDatabase == null) {
+            appDatabase = Room.databaseBuilder(appContext, AppDatabase.class, "mapsdb")
+                    .build();
+        }
+        return appDatabase;
+    }
 }

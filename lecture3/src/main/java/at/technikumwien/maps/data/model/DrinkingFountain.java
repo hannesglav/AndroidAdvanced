@@ -1,19 +1,23 @@
 package at.technikumwien.maps.data.model;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
 import com.google.android.gms.maps.model.LatLng;
 
+@Entity(tableName = "drinking_fountain")
 public class DrinkingFountain {
 
-    @NonNull
+    @PrimaryKey @NonNull
     private String id;
     @NonNull
     private String name;
     private double lat;
     private double lng;
 
-    public DrinkingFountain() { }
+    public DrinkingFountain() {
+    }
 
     public DrinkingFountain(@NonNull String id, @NonNull String name, double lat, double lng) {
         this.id = id;

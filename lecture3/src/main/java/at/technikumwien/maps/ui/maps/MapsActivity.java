@@ -14,6 +14,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.List;
@@ -65,18 +66,29 @@ public class MapsActivity extends BaseActivity<MapsView, MapsPresenter> implemen
     @Override
     public void onMapReady(GoogleMap googleMap) {
         this.googleMap = googleMap;
+
+        googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                String id = (String) marker.getTag();
+                // TODO: Implement (call presenter method)
+                return true;
+            }
+        });
+
         LatLng viennaLatLng = new LatLng(48.239340, 16.377335);
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(viennaLatLng, 10));
         presenter.loadDrinkingFountains();
     }
-
 
     @Override
     public void showDrinkingFountains(List<DrinkingFountain> drinkingFountains) {
         googleMap.clear();
 
         for(DrinkingFountain df : drinkingFountains) {
-            googleMap.addMarker(new MarkerOptions().position(df.getPosition()).title(df.getName()));
+            Marker marker = googleMap.addMarker(new MarkerOptions().position(df.getPosition()).title(df.getName()));
+            // Set the DrinkingFountain ID as tag
+            marker.setTag(df.getId());
         }
     }
 
