@@ -10,6 +10,8 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         appDependencyManager = new AppDependencyManager(this);
+
+        appDependencyManager.getSyncManager().schedulePeriodicSync();
     }
 
     public AppDependencyManager getAppDependencyManager() {

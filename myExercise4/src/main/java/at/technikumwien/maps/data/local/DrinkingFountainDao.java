@@ -1,5 +1,6 @@
 package at.technikumwien.maps.data.local;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
@@ -20,5 +21,8 @@ public interface DrinkingFountainDao {
 
     @Query("SELECT * FROM " + DrinkingFountain.TABLE_NAME)
     List<DrinkingFountain> loadAll();
+
+    @Query("SELECT * FROM " + DrinkingFountain.TABLE_NAME)
+    LiveData<List<DrinkingFountain>> loadAllWithChanges();
 
 }

@@ -24,6 +24,7 @@ import at.technikumwien.maps.data.model.DrinkingFountain;
 import at.technikumwien.maps.ui.base.BaseActivity;
 
 import static android.support.design.widget.Snackbar.LENGTH_INDEFINITE;
+import static android.support.design.widget.Snackbar.LENGTH_LONG;
 
 public class MapsActivity extends BaseActivity<MapsView, MapsPresenter> implements OnMapReadyCallback, MapsView {
 
@@ -111,6 +112,6 @@ public class MapsActivity extends BaseActivity<MapsView, MapsPresenter> implemen
 
     @Override
     public void showLocalStorageSuccess() {
-        Snackbar.make(rootLayout,"Locally stored",LENGTH_INDEFINITE).show();
+        Snackbar.make(rootLayout,"Locally stored",LENGTH_LONG).show();
     }
 }

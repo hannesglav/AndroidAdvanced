@@ -10,4 +10,5 @@ public interface DrinkingFountainRepo {
 
     void refreshList(OnOperationSuccessfulCallback callback, List<DrinkingFountain> drinkingFountains);
     void loadAll(OnDataLoadedCallback<List<DrinkingFountain>> callback);
+    void incrementCounter(OnOperationSuccessfulCallback callback, String id);
 }
