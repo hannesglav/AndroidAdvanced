@@ -10,6 +10,7 @@ import at.technikumwien.maps.data.local.AppDatabase;
 import at.technikumwien.maps.data.local.DrinkingFountainRepo;
 import at.technikumwien.maps.data.local.RoomDrinkingFountainRepo;
 import at.technikumwien.maps.data.remote.DrinkingFountainApi;
+import at.technikumwien.maps.util.managers.SyncManager;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -23,6 +24,7 @@ public class AppDependencyManager {
     private Gson gson;
     private DrinkingFountainApi drinkingFountainApi;
     private AppDatabase appDatabase;
+    private SyncManager syncManager;
 
     public AppDependencyManager(Context appContext) {
         this.appContext = appContext;
@@ -78,4 +80,8 @@ public class AppDependencyManager {
         return appDatabase;
     }
 
+    public SyncManager getSyncManager() {
+        if(syncManager == null) { syncManager = new SyncManager(this); }
+        return syncManager;
+    }
 }
